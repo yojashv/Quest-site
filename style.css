@@ -1,0 +1,90 @@
+* { box-sizing: border-box; transition: 0.3s; }
+body {
+    background-color: #050505;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+.navbar {
+    background: #0d1117;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #21262d;
+}
+
+.logo { font-size: 22px; font-weight: 800; color: #5865f2; }
+.logo span { color: white; }
+
+.status { color: #23a559; font-size: 13px; font-weight: bold; }
+.dot { height: 10px; width: 10px; background: #23a559; border-radius: 50%; display: inline-block; margin-right: 5px; box-shadow: 0 0 10px #23a559; }
+
+.container { max-width: 900px; margin: 30px auto; padding: 20px; }
+
+.section { margin-bottom: 40px; }
+.section-label { font-size: 16px; font-weight: 600; color: #f0f6fc; margin-bottom: 15px; }
+
+/* Boxes */
+.live-quest-container {
+    background: #161b22;
+    border: 1px solid #30363d;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    color: #8b949e;
+}
+
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+
+.card-mini {
+    background: #161b22;
+    border: 1px solid #30363d;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+}
+.card-mini:hover { border-color: #5865f2; background: #1c2129; }
+.card-mini i { font-size: 18px; margin-bottom: 8px; display: block; }
+.price-tag { font-size: 18px; font-weight: 800; }
+
+/* Plan Styles */
+.plan-card {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: left;
+}
+.plan-card.weekly { border-left: 4px solid #5865f2; }
+.plan-card.monthly { border-left: 4px solid #a333c8; }
+.plan-card.yearly { border-left: 4px solid #f2711c; }
+
+.plan-name { font-size: 14px; color: #8b949e; margin: 0; }
+.plan-price { font-size: 32px; font-weight: 800; margin: 10px 0; }
+
+.buy-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-weekly { background: #4752c4; }
+.btn-monthly { background: #a333c8; }
+.btn-yearly { background: #f2711c; }
+
+/* Modal */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 100; }
+.hidden { display: none; }
+.modal-box { background: #161b22; padding: 30px; border-radius: 20px; text-align: center; width: 90%; max-width: 350px; border: 1px solid #30363d; }
+#qr-display { width: 180px; height: 180px; margin: 15px 0; border: 4px solid white; border-radius: 10px; }
+.inputs input { width: 100%; padding: 12px; margin-bottom: 10px; background: #0d1117; border: 1px solid #30363d; color: white; border-radius: 8px; }
+.submit-btn { width: 100%; background: #23a559; padding: 12px; border: none; color: white; border-radius: 8px; font-weight: bold; cursor: pointer; }
+.close-btn { float: right; cursor: pointer; color: #8b949e; font-size: 20px; }
