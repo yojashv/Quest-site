@@ -53,3 +53,27 @@ async function submitOrder() {
         alert("Notification failed! Check Webhook.");
     }
 }
+async function loadLiveQuests() {
+    try {
+        // Apne GitHub Username aur Repo ka naam yahan badlein
+        const response = await fetch('https://raw.githubusercontent.com/YOUR_USERNAME/discord-quest-site/main/quests.json');
+        const quests = await response.json();
+        
+        const container = document.getElementById('quest-data');
+        if(quests.length > 0) {
+            container.innerHTML = quests.map(q => `
+                <div style="display:flex; justify-content:space-between; width:100%; margin-bottom:5px;">
+                    <span style="color:white; font-weight:bold;">${q.name}</span>
+                    <span style="color:#5865f2; font-size:12px;">${q.platform}</span>
+                </div>
+            `).join('');
+            // Spinner icon ko hide karne ke liye
+            document.querySelector('.fa-spin').style.display = 'none';
+        }
+    } catch (error) {
+        console.log("Quests load nahi ho paye.");
+    }
+}
+
+// Website load hote hi quests dikhao
+loadLiveQuests();
