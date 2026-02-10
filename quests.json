@@ -1,4 +1,12 @@
 [
-  { "name": "Genshin Impact: Special Task", "platform": "PC" },
-  { "name": "Mobile Legends: Stream Quest", "platform": "Mobile" }
+  { 
+    "name": "Genshin Impact: Special Task", 
+    "platform": "PC",
+    "link": "https://discord.com/channels/YOUR_SERVER_ID/CHANNEL_ID" 
+  },
+  { 
+    "name": "Mobile Legends: Stream Quest", 
+    "platform": "Mobile",
+    "link": "https://www.google.com"
+  }
 ]
