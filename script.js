@@ -1,10 +1,11 @@
 // --- CONFIGURATION ---
-const UPI_ID = "yojashvrajput9@oksbi"; // <--- Yahan apni UPI ID daalein
-const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1470833145397116950/faLy_SQyg38KY1sKe_Frk4KuAZzlqZI0FdsAT26YAD0gHA8gAKRj8E55BqDY1lNjjZ14"; // <--- Yahan apna Discord Webhook URL paste karein
+const UPI_ID = "yojashvrajput9@oksbi"; // Aapki verified UPI ID
+const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1470833145397116950/faLy_SQyg38KY1sKe_Frk4KuAZzlqZI0FdsAT26YAD0gHA8gAKRj8E55BqDY1lNjjZ14";
 
 let amt = 0;
 let plan = "";
 
+// 1. Modal aur QR Code kholne ka function
 function openPayment(price, name) {
     amt = price;
     plan = name;
@@ -17,15 +18,30 @@ function openPayment(price, name) {
     document.getElementById('paymentModal').classList.remove('hidden');
 }
 
+// 2. Modal band karne ka function
 function closeModal() {
     document.getElementById('paymentModal').classList.add('hidden');
+    // Button ko wapas reset karein agar band kiya jaye
+    const submitBtn = document.querySelector('button[onclick="submitOrder()"]');
+    if(submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Submit Payment";
+    }
 }
 
+// 3. Order submit karne ka function (Double Click Protection ke sath)
 async function submitOrder() {
+    const submitBtn = document.querySelector('button[onclick="submitOrder()"]');
     const user = document.getElementById('discord-user').value;
     const txn = document.getElementById('transaction-id').value;
 
-    if(!user || txn.length < 10) return alert("Sahi details dalo!");
+    // Validation: Discord User aur 10-20 digit ki TXN ID
+    if(!user) return alert("Apna Discord Username dalo!");
+    if(txn.length < 10 || txn.length > 20) return alert("Wrong/Write valid Transaction ID (10-20 digits)!");
+
+    // Button ko disable karein taaki duplicate order na jaye
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Processing...";
 
     const payload = {
         embeds: [{
@@ -37,30 +53,39 @@ async function submitOrder() {
                 { name: "Discord ID", value: user },
                 { name: "TXN ID", value: `\`${txn}\`` }
             ],
+            footer: { text: "Verify payment before activating!" },
             timestamp: new Date()
         }]
     };
 
     try {
-        await fetch(DISCORD_WEBHOOK, {
+        const response = await fetch(DISCORD_WEBHOOK, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
-        alert('Success! Owner will verify and activate your plan.');
-        closeModal();
+
+        if (response.ok) {
+            alert('Success! Order received. Owner will verify soon.');
+            closeModal();
+        } else {
+            throw new Error("Webhook error");
+        }
     } catch (e) {
-        alert('Notification failed! Check Webhook.');
+        alert('Notification failed! Check connection or Webhook.');
+        submitBtn.disabled = false; // Error aaye toh button wapas enable karein
+        submitBtn.innerText = "Submit Payment";
     }
 }
 
+// 4. Live Quests load karne ka function
 async function loadLiveQuests() {
     try {
         const response = await fetch('https://raw.githubusercontent.com/yojashv/Quest-site/main/quests.json');
         const quests = await response.json();
         
         const container = document.getElementById('quest-data');
-        if(quests.length > 0) {
+        if(quests && quests.length > 0) {
             container.innerHTML = quests.map(q => `
                 <div style="display:flex; justify-content:space-between; width:100%; margin-bottom:8px; background: rgba(255,255,255,0.05); padding: 8px; border-radius: 5px;">
                     <span style="color:white; font-weight:bold;">${q.name}</span>
@@ -68,7 +93,6 @@ async function loadLiveQuests() {
                 </div>
             `).join('');
             
-            // Loading spinner hatane ke liye
             const spinner = document.querySelector('.fa-spin') || document.querySelector('.fa-spinner');
             if(spinner) spinner.style.display = 'none';
         }
@@ -77,5 +101,5 @@ async function loadLiveQuests() {
     }
 }
 
-// Website load hote hi quests dikhao
+// Initial Call
 loadLiveQuests();
