@@ -1,5 +1,3 @@
 [
-  { "id": "asmit0730", "status": "✅ Active", "plan": "Weekly" },
-  { "id": "yuvraj_king", "status": "⏳ Processing", "plan": "Monthly" },
-  { "id": "test_user", "status": "❌ Payment Failed", "plan": "None" }
+  { "id": "asmit0730", "status": "✅ Active", "plan": "Weekly Plan" }
 ]
