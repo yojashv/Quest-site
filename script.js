@@ -56,7 +56,7 @@ async function submitOrder() {
 async function loadLiveQuests() {
     try {
         // Apne GitHub Username aur Repo ka naam yahan badlein
-        const response = await fetch('https://raw.githubusercontent.com/YOUR_USERNAME/discord-quest-site/main/quests.json');
+        const response = await fetch('https://raw.githubusercontent.com/yojashv/Quest-site/main/quests.json');
         const quests = await response.json();
         
         const container = document.getElementById('quest-data');
