@@ -55,27 +55,24 @@ async function submitOrder() {
 }
 async function loadLiveQuests() {
     try {
-        // Apne GitHub Username aur Repo ka naam yahan badlein
         const response = await fetch('https://raw.githubusercontent.com/yojashv/Quest-site/main/quests.json');
         const quests = await response.json();
         
+        const container = document.getElementById('quest-data');
         if(quests.length > 0) {
             container.innerHTML = quests.map(q => `
-                <div style="display:flex; justify-content:space-between; align-items:center; width:100%; margin-bottom:10px; background:#1c2129; padding:12px; border-radius:10px; border: 1px solid #30363d;">
-                    <div>
-                        <span style="color:white; font-weight:bold; display:block; font-size:14px;">${q.name}</span>
-                        <span style="color:#5865f2; font-size:11px; text-transform:uppercase; letter-spacing:1px;">${q.platform}</span>
-                    </div>
-                    <a href="${q.link || '#'}" target="_blank" style="background:#5865f2; color:white; padding:8px 16px; border-radius:6px; text-decoration:none; font-size:12px; font-weight:bold; transition: 0.2s;" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865f2'">
-                        Go to Quest <i class="fas fa-external-link-alt" style="font-size:10px; margin-left:5px;"></i>
-                    </a>
+                <div style="display:flex; justify-content:space-between; width:100%; margin-bottom:5px;">
+                    <span style="color:white; font-weight:bold;">${q.name}</span>
+                    <span style="color:#5865f2; font-size:12px;">${q.platform}</span>
                 </div>
             `).join('');
+            // Spinner ko hide karne ke liye
+            const spinner = document.querySelector('.fa-spin') || document.querySelector('.fa-spinner');
+            if(spinner) spinner.style.display = 'none';
         }
     } catch (error) {
         console.log("Quests load nahi ho paye.");
     }
 }
 
-// Website load hote hi quests dikhao
 loadLiveQuests();
