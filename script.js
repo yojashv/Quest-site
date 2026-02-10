@@ -1,6 +1,6 @@
 // --- CONFIGURATION ---
 const UPI_ID = "YOURNAME@upi"; // <--- Yahan apni UPI ID daalein
-const DISCORD_WEBHOOK = "YOUR_WEBHOOK_URL"; // <--- Yahan apna Discord Webhook URL paste karein
+const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1470833145397116950/faLy_SQyg38KY1sKe_Frk4KuAZzlqZI0FdsAT26YAD0gHA8gAKRj8E55BqDY1lNjjZ14"; // <--- Yahan apna Discord Webhook URL paste karein
 
 let amt = 0;
 let plan = "";
